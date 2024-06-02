@@ -1,0 +1,55 @@
+﻿@page "/SignUp"
+
+@using System.Text.Encodings.Web
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using Newtonsoft.Json
+@using SocialMediaClient.Models.Identity.Request
+
+<h3>Sign Up</h3>
+<span>
+    By continuing, you agree to our User Agreement and acknowledge that you understand the Privacy Policy.
+</span>
+
+<TelerikForm Model=@req OnValidSubmit=@(async () => await OnValidOnSubmit())>
+    <FormValidation>
+        <DataAnnotationsValidator />
+    </FormValidation>
+
+    <FormItems>
+        <FormItem Field=@nameof(req.Email) LabelText="Email"
+                  EditorType=@FormEditorType.TextBox>
+        </FormItem>
+
+        <FormItem Field=@nameof(req.UserName) LabelText="UserName"
+                  EditorType=@FormEditorType.TextBox>
+        </FormItem>
+
+        <FormItem Field=@nameof(req.Password)
+                  EditorType=@FormEditorType.TextBox
+                  LabelText="Password">
+        </FormItem>
+
+        <FormItem Field="@nameof(req.ConfirmPassword)"
+                  EditorType=@FormEditorType.TextBox
+                  LabelText="Confirm Password">
+        </FormItem>
+    </FormItems>
+</TelerikForm>
+
+@code {
+    private RegisterReq req;
+
+    protected override async Task OnInitializedAsync()
+    {
+        req = new();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task OnValidOnSubmit()
+    {
+        HttpClient httpClient = new();
+
+        await httpClient.PostAsJsonAsync("https://localhost:7097/User/SignUp", req);
+    }
+}

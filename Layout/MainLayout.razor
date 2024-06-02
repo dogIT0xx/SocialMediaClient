@@ -1,0 +1,65 @@
+﻿@inherits LayoutComponentBase
+
+@inject NavigationManager navManager
+
+<TelerikRootComponent>
+    <header class="fixed-top">
+        <TelerikAppBar Position=AppBarPosition.Top
+                       ThemeColor=@ThemeConstants.AppBar.ThemeColor.Base
+                       Class="d-flex justify-content-between row">
+            <AppBarSection Class="col-3">
+                <TelerikSvgIcon Icon="@SvgIcon.Reddit" Size=@ThemeConstants.SvgIcon.Size.ExtraExtraExtraLarge></TelerikSvgIcon>
+            </AppBarSection>
+
+            <AppBarSection Class="col-4">
+                <TelerikTextBox Width="100%" Placeholder="Search"></TelerikTextBox>
+            </AppBarSection>
+
+            <AppBarSection Class="col-3 d-flex justify-content-end">
+
+                <TelerikButton Rounded=@ThemeConstants.Button.Rounded.Full
+                               Icon=@SvgIcon.Globe
+                               Size=@ThemeConstants.Button.Size.Large
+                               FillMode=@ThemeConstants.Button.FillMode.Flat>
+                </TelerikButton>
+
+                <TelerikButton Rounded=@ThemeConstants.Button.Rounded.Full
+                               Icon=@SvgIcon.PaperPlane
+                               Size=@ThemeConstants.Button.Size.Large
+                               FillMode=@ThemeConstants.Button.FillMode.Flat>
+                </TelerikButton>
+
+                <TelerikButton Rounded=@ThemeConstants.Button.Rounded.Full
+                               Icon="@SvgIcon.Plus"
+                               Size=@ThemeConstants.Button.Size.Large
+                               FillMode=@ThemeConstants.Button.FillMode.Flat
+                               OnClick=@(() => navManager.NavigateTo("Post/Create"))>
+                    Create
+                </TelerikButton>
+
+                <TelerikButton Rounded=@ThemeConstants.Button.Rounded.Full
+                               Icon=@SvgIcon.Bell
+                               Size=@ThemeConstants.Button.Size.Large
+                               FillMode=@ThemeConstants.Button.FillMode.Flat>
+                </TelerikButton>
+
+                <TelerikButton Rounded=@ThemeConstants.Button.Rounded.Full
+                               Icon=@SvgIcon.User
+                               Size=@ThemeConstants.Button.Size.Large
+                               FillMode=@ThemeConstants.Button.FillMode.Flat>
+                </TelerikButton>
+
+            </AppBarSection>
+        </TelerikAppBar>
+    </header>
+
+    <main class="d-flex" style="margin-top:64px">
+        <NavMenu />
+        <article class="content mx-auto shadow-lg p-3 mb-5 bg-body-tertiary" style="width: 760px">
+            @Body
+        </article>
+    </main>
+
+    <footer>
+    </footer>
+</TelerikRootComponent>

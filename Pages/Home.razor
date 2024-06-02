@@ -1,0 +1,37 @@
+﻿@page "/Home"
+
+@using SocialMediaClient.Components.Post
+
+<TelerikListView Data="@ListViewData" Pageable="true" PageSize="15">
+
+    <HeaderTemplate>
+
+    </HeaderTemplate>
+
+    <Template>
+        <div class="mb-4 border border-black">
+            <Post />
+        </div>
+    </Template>
+</TelerikListView>
+
+@code {
+    List<SampleData> ListViewData { get; set; } = Enumerable.Range(1, 4).Select(x => new SampleData
+        {
+            Id = x,
+            Name = $"Name {x}",
+            Team = $"Team {x % 3}"
+        }).ToList();
+
+    public class SampleData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Team { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,32 @@
+﻿@* Blazor Card with all building blocks included *@
+
+<TelerikCard Width="100%" Orientation=@CardOrientation.Vertical>
+    <CardHeader>
+        <CardTitle>Tourism</CardTitle>
+    </CardHeader>
+
+    <CardBody>
+        <CardTitle>Rome</CardTitle>
+        <CardSubTitle>Capital of Italy</CardSubTitle>
+        <CardSeparator></CardSeparator> 
+        <p>
+            Rome is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display.
+
+            Ancient ruins such as the Forum and the Colosseum evoke the power of the former Roman Empire.
+        </p>
+
+        <CardImage Src="https://docs.telerik.com/blazor-ui/components/card/images/rome.jpg" Width="100%"></CardImage>
+    </CardBody>
+    <CardActions Layout="@CardActionsLayout.Stretch">
+        <TelerikButton Icon=@SvgIcon.HeartOutline>Like</TelerikButton>
+
+        <TelerikButton Icon=@SvgIcon.Comment>Comment</TelerikButton>
+
+        <TelerikButton Icon=@SvgIcon.Share>More</TelerikButton>
+    </CardActions>
+
+    <CardFooter>
+        <span style="float:left">Created by @@john</span>
+        <span style="float:right">March 05, 2021</span>
+    </CardFooter>
+</TelerikCard>
