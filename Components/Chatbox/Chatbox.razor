@@ -1,0 +1,103 @@
+﻿@page "/chat"
+
+<TelerikWindow Visible="true"
+               Width="600px"
+               Height="500px"
+               Left="60%"
+               Top="32%">
+    <WindowTitle>Chats</WindowTitle>
+
+    <WindowActions>
+        <WindowAction Icon="@SvgIcon.WindowMinimize"></WindowAction>
+        <WindowAction Icon="@SvgIcon.XCircle" Name="Close"></WindowAction>
+    </WindowActions>
+
+    <WindowContent>
+        <TelerikTabStrip TabPosition="TabPosition.Left" Width="100%" Height="100%" Scrollable="true">
+            @{
+                foreach (MyTabModel item in tabs)
+                {
+                    <TabStripTab Title="@item.Title" Disabled="@item.Disabled" @key="@item">
+                        <Content>
+                            <div class="row">
+                                @foreach (var chat in chats)
+                                {
+                                    <div class="col-12 mb-2 d-flex justify-content-start">
+                                        <TelerikAvatar Height="40px" Width="40px">
+                                        </TelerikAvatar>
+                                        <span>@chat.SenderName</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <TelerikButton Icon="@SvgIcon.Camera"
+                                                   Rounded="@ThemeConstants.Button.Rounded.Full"
+                                                   FillMode="@ThemeConstants.Button.FillMode.Flat"></TelerikButton>
+                                </div>
+
+                                <div class="col-8">
+                                    <TelerikTextBox @bind-Value=@message
+                                                    Rounded="@ThemeConstants.TextBox.Rounded.Full"></TelerikTextBox>
+                                </div>
+                                <div class="col-2">
+                                    <TelerikButton Icon="@SvgIcon.PaperPlane"
+                                                   Rounded="@ThemeConstants.Button.Rounded.Full"
+                                                   FillMode="@ThemeConstants.Button.FillMode.Flat"></TelerikButton>
+                                </div>
+                            </div>
+                        </Content>
+                    </TabStripTab>
+                }
+            }
+        </TelerikTabStrip>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    private string message;
+    List<MyTabModel> tabs = new List<MyTabModel>()
+    {
+        new MyTabModel { Title = "One" },
+        new MyTabModel { Title = "Two" },
+        new MyTabModel { Title = "Three" },
+        new MyTabModel { Title = "One" },
+        new MyTabModel { Title = "Two" },
+        new MyTabModel { Title = "Three" },
+        new MyTabModel { Title = "One" },
+        new MyTabModel { Title = "Two"},
+        new MyTabModel { Title = "Three" },
+        new MyTabModel { Title = "One" },
+        new MyTabModel { Title = "Two"},
+        new MyTabModel { Title = "Three" },
+    };
+
+    List<ChatboxDto> chats = new();
+
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            var chatboxDto = new ChatboxDto
+                {
+                    Id = i,
+                    SenderName = $"SenderName {i}",
+                    ReceiverName = $"ReceiverName {i}",
+                };
+            chats.Add(chatboxDto);
+        }
+    }
+
+    public class MyTabModel
+    {
+        public string Title { get; set; }
+        public bool Disabled { get; set; }
+    }
+
+    public class ChatboxDto
+    {
+        public int Id { get; set; }
+        public string SenderName { get; set; }
+        public string ReceiverName { get; set; }
+    }
+}

@@ -4,33 +4,34 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using Newtonsoft.Json
-@using SocialMediaClient.Models.Identity.Request
+@using SocialMediaClient.Models.Identity
+@using SocialMediaClient.Share.RequestModels
 
 <h3>Sign Up</h3>
 <span>
     By continuing, you agree to our User Agreement and acknowledge that you understand the Privacy Policy.
 </span>
 
-<TelerikForm Model=@req OnValidSubmit=@(async () => await OnValidOnSubmit())>
+<TelerikForm Model=@inputModel OnValidSubmit=@(async () => await OnValidOnSubmit())>
     <FormValidation>
         <DataAnnotationsValidator />
     </FormValidation>
 
     <FormItems>
-        <FormItem Field=@nameof(req.Email) LabelText="Email"
+        <FormItem Field=@nameof(inputModel.Email) LabelText="Email"
                   EditorType=@FormEditorType.TextBox>
         </FormItem>
 
-        <FormItem Field=@nameof(req.UserName) LabelText="UserName"
+        <FormItem Field=@nameof(inputModel.UserName) LabelText="UserName"
                   EditorType=@FormEditorType.TextBox>
         </FormItem>
 
-        <FormItem Field=@nameof(req.Password)
+        <FormItem Field=@nameof(inputModel.Password)
                   EditorType=@FormEditorType.TextBox
                   LabelText="Password">
         </FormItem>
 
-        <FormItem Field="@nameof(req.ConfirmPassword)"
+        <FormItem Field="@nameof(inputModel.ConfirmPassword)"
                   EditorType=@FormEditorType.TextBox
                   LabelText="Confirm Password">
         </FormItem>
@@ -38,11 +39,11 @@
 </TelerikForm>
 
 @code {
-    private RegisterReq req;
+    private RegisterModel inputModel;
 
     protected override async Task OnInitializedAsync()
     {
-        req = new();
+        inputModel = new();
         await base.OnInitializedAsync();
     }
 
@@ -50,6 +51,6 @@
     {
         HttpClient httpClient = new();
 
-        await httpClient.PostAsJsonAsync("https://localhost:7097/User/SignUp", req);
+        await httpClient.PostAsJsonAsync("https://localhost:7097/User/SignUp", inputModel);
     }
 }
